@@ -4,7 +4,7 @@ from torch_geometric.nn import GCNConv
 from torch.nn import Linear
 
 class BroadcastGNN(torch.nn.Module):
-    def __init__(self, in_dim=4, hidden=32):
+    def __init__(self, in_dim=6, hidden=32):
         super().__init__()
         self.conv1 = GCNConv(in_dim, hidden)
         self.head  = Linear(hidden, 1)
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     x          = torch.rand(50, 4)
     edge_index = torch.randint(0, 50, (2, 308))
 
-    model  = BroadcastGNN(in_dim=4, hidden=32)
+    model  = BroadcastGNN(in_dim=6, hidden=32)
     logits = model(x, edge_index)
 
     print(f"Input  x     : {x.shape}")        # [50, 4]
