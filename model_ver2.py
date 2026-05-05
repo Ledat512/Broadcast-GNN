@@ -7,15 +7,17 @@ class BroadcastGNN(torch.nn.Module):
     def __init__(self, in_dim=6, hidden=32):
         super().__init__()
         self.conv1 = GCNConv(in_dim, hidden)
+        self.conv2 = GCNConv(hidden, hidden)
         self.head  = Linear(hidden, 1)
 
     def forward(self, x, edge_index):
         x = F.relu(self.conv1(x, edge_index))
+        x = F.relu(self.conv2(x, edge_index))
         x = self.head(x)
-        return x.squeeze(-1)
+        return x.squeeze(-1)S
 
 if __name__ == "__main__":
-    x          = torch.rand(50, 4)
+    x          = torch.rand(50, 6)
     edge_index = torch.randint(0, 50, (2, 308))
 
     model  = BroadcastGNN(in_dim=6, hidden=32)
