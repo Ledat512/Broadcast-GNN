@@ -14,7 +14,7 @@ class BroadcastGNN(torch.nn.Module):
         x = F.relu(self.conv1(x, edge_index))
         x = F.relu(self.conv2(x, edge_index))
         x = self.head(x)
-        return x.squeeze(-1)S
+        return x.squeeze(-1)
 
 if __name__ == "__main__":
     x          = torch.rand(50, 6)
